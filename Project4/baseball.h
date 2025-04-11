@@ -18,7 +18,12 @@ public:
     GuessResult guess(const string &guessNumber)
     {
         assertIllegalArgument(guessNumber);
-        return {3, 0, true};
+
+        if (guessNumber == question)
+        {
+            return {3, 0, true};
+        }
+        return {0, 0, false};
     }
 private:
     string question;
