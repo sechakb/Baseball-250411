@@ -1,14 +1,20 @@
 #include "gmock/gmock.h"
 #include "baseball.h"
 
+int main()
+{
+    ::testing::InitGoogleMock();
+    return RUN_ALL_TESTS();
+}
+
 TEST(BaseballGame, ThrowExceptionWhenInputLengthIsUnmached)
 {
     Baseball game;
     EXPECT_THROW(game.guess(string("12")), length_error);
 }
 
-int main()
+TEST(BaseballGame, ThrowExceptionWhenInvalidChar)
 {
-    ::testing::InitGoogleMock();
-    return RUN_ALL_TESTS();
+    Baseball game;
+    EXPECT_THROW(game.guess(string("12s")), invalid_argument);
 }
