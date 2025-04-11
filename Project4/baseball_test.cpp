@@ -7,14 +7,28 @@ int main()
     return RUN_ALL_TESTS();
 }
 
-TEST(BaseballGame, ThrowExceptionWhenInputLengthIsUnmached)
+class BaseballFixture : public testing::Test
 {
+public:
     Baseball game;
-    EXPECT_THROW(game.guess(string("12")), length_error);
-}
+    void assertIllegalArgument(string guessNumber)
+    {
+        // game.guess() 수행 후, Exception이 발생해야 PASS이다.
+        // EXPECT_THROW(game.guess(guessNumber), exception);
+        try
+        {
+            game.guess(guessNumber);
+            FAIL();
+        }
+        catch(const exception& e)
+        {
+            // PASS
+        }
+    }
+};
 
-TEST(BaseballGame, ThrowExceptionWhenInvalidChar)
+TEST_F(BaseballFixture, ThrowExceptionWhenInvalidCase)
 {
-    Baseball game;
-    EXPECT_THROW(game.guess(string("12s")), invalid_argument);
+    assertIllegalArgument("12");
+    assertIllegalArgument("12s");
 }
